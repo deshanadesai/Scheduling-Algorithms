@@ -1,0 +1,48 @@
+Variables:
+
+pid[] - Array that stores the process IDs. Restriction- The process IDs have to be serially numbered starting from 0.
+run[] - Runtime for each process.
+arrival[] - arrival time of each process.
+count - Keeps a count of the PIDs trversed in the incoming queue.
+qcount - It is the count of the number of elements in the present queue.
+q[] - This acts as a virtual queue for the number of elements up for processing at a certain time.
+allArrived - This is a boolean value which represents whether all the processes have arrived or are their some yet to arrive.
+current_time - keeps track of current time
+
+Algorithm:
+
+This algorithm implements a queue where every process ID is added and executed in order. There are three cases to be considered. One: If the next element is 'x' units of time after the completion of the previous element. That is it arrives way later. Second: If the element arrives WHILE the previous element is executing. In this case it is added to the queue, it waits. Third: If the element arrives at the current time.
+
+Input test cases:
+
+1.      int arrival[]=new int[] {0,0,0,0,20};
+        int run[]=new int[] {5,2,3,4,2}; 
+        int pid[] = new int[]{0,1,2,3,4};
+
+        Output: current time: 22 [RIGHT answer]
+        		Executes Process (order): 0,1,2,3,4
+
+2. 		int arrival[]=new int[] {0,0,0,4};
+        int run[]=new int[] {5,2,3,1}; 
+        int pid[] = new int[]{0,1,2,3};
+
+  		schedule(pid, run, arrival);
+
+  		Output: current time: 11 [RIGHT answer]
+  				Executes Process (order): 0,1,2,3,4
+
+ 3. 	int arrival[]=new int[] {0,0,0,3};
+        int run[]=new int[] {5,2,3,1}; 
+        int pid[] = new int[]{0,1,2,3};
+
+        Output: current time: 11 [RIGHT answer]
+  				Executes Process (order): 0,1,2,3,4
+
+ 4. 	int arrival[]=new int[] {0,1,2,3};
+        int run[]=new int[] {5,2,3,1}; 
+        int pid[] = new int[]{0,1,2,3};
+
+  		schedule(pid, run, arrival);
+
+  		Output: current time: 11 [RIGHT answer]
+  				Executes Process (order): 0,1,2,3,4

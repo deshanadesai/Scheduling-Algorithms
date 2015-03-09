@@ -1,0 +1,49 @@
+Variables:
+
+pid[] - Array that stores the process IDs. Restriction- The process IDs have to be serially numbered starting from 0.
+run[] - Runtime for each process.
+arrival[] - arrival time of each process.
+count - Keeps a count of the PIDs trversed in the incoming queue.
+qcount - It is the count of the number of elements in the present queue.
+q[] - This acts as a virtual queue for the number of elements up for processing at a certain time.
+allArrived - This is a boolean value which represents whether all the processes have arrived or are their some yet to arrive.
+current_time - keeps track of current time
+
+Algorithm:
+
+The schedule method takes in the input data which consists of the process IDs, the runtime for each process and the arrival time for each method.
+With this, the current time is first set to the process that arrives first. All the other processes that arrive at this time are added to the queue (which in this case is the array q). Now, the process with the maximum run time is found. This process is executed. Meanwhile, before execution, the code checks if there are any other processes due to arrive WHILE the process chosen to be executed will be executing. If yes, the chosen process executes for a certain time till the new process arrives and then stops. The algorithm repeats back to the stage where the maximum element in the queue must be found since the new element could be the maximum (longest running time) value in this case. If no, the element executes to completion and is removed from the queue. To remove the element, it is replaced with the last element of the array and the array count is decreased. Thus that element ceases to exist since the queue is only considered till the array count element. If some elements complete and the queue is empty, since there are no elements that will be executing at this moment, the algorithm waits for the next element to arrive. That is, the current time is now set to the arrival of the new element. Thus the "air bubble" or the gap between the completion of the current processes and a new process to arrive (the queue stays empty in this gap) is taken care of.
+
+Input test cases:
+
+1.      int arrival[]=new int[] {0,0,0,0,20};
+        int run[]=new int[] {5,2,3,4,2}; 
+        int pid[] = new int[]{0,1,2,3,4};
+
+        Output: current time: 22 [RIGHT answer]
+        		Executes Process (order): 0,3,2,1,none(air bubble),4 [RIGHT answer]
+
+2. 		  int arrival[]=new int[] {0,0,0,4};
+        int run[]=new int[] {5,2,3,1}; 
+        int pid[] = new int[]{0,1,2,3};
+
+  		schedule(pid, run, arrival);
+
+  		Output: current time: 11 [RIGHT answer]
+  				Executes Process (order): 0,2,1,0,3 [RIGHT]
+
+ 3. 	  int arrival[]=new int[] {0,0,0,3};
+        int run[]=new int[] {5,2,3,1}; 
+        int pid[] = new int[]{0,1,2,3};
+
+        Output: current time: 11 [RIGHT answer]
+  				Executes Process (order): 0,2,0,1,3 [RIGHT]
+
+ 4. 	int arrival[]=new int[] {0,1,2,3};
+        int run[]=new int[] {5,2,3,1}; 
+        int pid[] = new int[]{0,1,2,3};
+
+  		schedule(pid, run, arrival);
+
+  		Output: current time: 11 [RIGHT answer]
+  				Executes Process (order): 0,2,0,1,3 [RIGHT]
